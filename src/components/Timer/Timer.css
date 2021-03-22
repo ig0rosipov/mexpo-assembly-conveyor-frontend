@@ -1,0 +1,148 @@
+.timer {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.timer__main {
+  margin: 0;
+  padding: 0;
+  font-size: 16vw;
+  font-weight: 200;
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.timer__phase {
+  margin: 0;
+  padding: 0;
+  font-size: 3vw;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 3px;
+}
+
+.timer__form {
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.timer__controls {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10vh;
+  box-sizing: border-box;
+}
+
+.timer__buttons {
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.timer__label {
+  font-size: 22px;
+  margin-bottom: 6px;
+}
+
+.timer__time-input {
+  width: 100%;
+  background: none;
+  outline: none;
+  color: white;
+  box-sizing: border-box;
+  border: 1px solid white;
+  margin-bottom: 18px;
+  font-size: 24px;
+}
+
+.timer__time-input:last-of-type {
+  margin: 0;
+}
+
+.timer__time-input::-webkit-datetime-edit-fields-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.timer__time-input::-webkit-calendar-picker-indicator {
+  background-color: white;
+  padding: 10px;
+}
+
+.timer__submit-button {
+  margin-top: 60px;
+  background: none;
+  outline: none;
+  color: white;
+  border: 2px solid #2976EC;
+  border-radius: 3px;
+  box-sizing: border-box;
+  padding: 20px 30px;
+  cursor: pointer;
+  transition: background-color .3s;
+  width: 100%;
+}
+
+.timer__submit-button:hover {
+  background-color: #2976EC;
+}
+
+.timer__control-button {
+  width: 100%;
+  max-width: 200px;
+  border: 2px solid;
+  color: white;
+  box-sizing: border-box;
+  padding: 20px 0;
+  cursor: pointer;
+  transition: background-color .3s, opacity .3s;
+  border-radius: 3px;
+  font-size: 22px;
+  outline: none;
+}
+
+.timer__control-button:hover {
+  opacity: 0.7;
+}
+
+.timer__control-button_type_continue {
+  border-color: #18D256;
+  background-color: #18D256;
+}
+
+.timer__control-button_type_pause {
+  border-color: crimson;
+  background-color: crimson;
+}
+
+@media screen and (max-width: 630px) {
+  .timer__controls {
+    flex-direction: column;
+    margin-top: 30px;
+  }
+
+  .timer__form{ 
+    max-width: 100%;
+  }
+
+  .timer__buttons {
+    margin-top: 16vh;
+    max-width: 100%;
+  }
+
+  .timer__control-button {
+    max-width: 100%;
+    margin-bottom: 30px;
+  }
+}

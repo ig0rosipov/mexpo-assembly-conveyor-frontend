@@ -1,6 +1,7 @@
 class Api {
   constructor() {
-    this._baseUrl = "http://192.168.25.145";
+    this._arduinoUrl = "http://192.168.25.181";
+    this._serverUrl = "http://bel11.modern.org:5000";
   }
 
   _handleOriginalResponse(result) {
@@ -11,7 +12,7 @@ class Api {
   }
 
   runConveyor() {
-    return fetch(this._baseUrl + "/run", {
+    return fetch(this._arduinoUrl + "/run", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -22,7 +23,7 @@ class Api {
   }
 
   stopConveyor() {
-    return fetch(this._baseUrl + "/stop", {
+    return fetch(this._arduinoUrl + "/stop", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -33,11 +34,26 @@ class Api {
   }
 
   checkState() {
-    return fetch(this._baseUrl + "/check", {
+    return fetch(this._arduinoUrl + "/check", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
+    })
+      .then(this._handleOriginalResponse)
+      .then((data) => data.json());
+  }
+
+  setTime({ stopTime, runTime }) {
+    return fetch(this._serverUrl + "/set-time", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        stopTime,
+        runTime,
+      }),
     })
       .then(this._handleOriginalResponse)
       .then((data) => data.json());
