@@ -1,5 +1,5 @@
 .timer {
-  width: 80%;
+  width: 90%;
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -8,12 +8,15 @@
 }
 
 .timer__main {
+  width: 100%;
+  text-align: center;
   margin: 0;
   padding: 0;
-  font-size: 16vw;
+  font-size: 20vw;
   font-weight: 200;
   line-height: 1;
   letter-spacing: -0.05em;
+  transition: 0.5s;
 }
 
 .timer__phase {
@@ -85,17 +88,17 @@
   background: none;
   outline: none;
   color: white;
-  border: 2px solid #2976EC;
+  border: 2px solid #2976ec;
   border-radius: 3px;
   box-sizing: border-box;
   padding: 20px 30px;
   cursor: pointer;
-  transition: background-color .3s;
+  transition: background-color 0.3s;
   width: 100%;
 }
 
 .timer__submit-button:hover {
-  background-color: #2976EC;
+  background-color: #2976ec;
 }
 
 .timer__control-button {
@@ -106,7 +109,7 @@
   box-sizing: border-box;
   padding: 20px 0;
   cursor: pointer;
-  transition: background-color .3s, opacity .3s;
+  transition: background-color 0.3s, opacity 0.3s;
   border-radius: 3px;
   font-size: 22px;
   outline: none;
@@ -116,12 +119,27 @@
   opacity: 0.7;
 }
 
+.timer__control-button_disabled {
+  background: none !important;
+  opacity: 0.2;
+  cursor: inherit;
+}
+
+.timer__control-button_disabled:hover {
+  opacity: 0.2;
+}
+
 .timer__control-button_type_continue {
-  border-color: #18D256;
-  background-color: #18D256;
+  border-color: #18d256;
+  background: #18d256;
 }
 
 .timer__control-button_type_pause {
+  border-color: #ffa742;
+  background-color: #ffa742;
+}
+
+.timer__control-button_type_emergency {
   border-color: crimson;
   background-color: crimson;
 }
@@ -132,7 +150,7 @@
     margin-top: 30px;
   }
 
-  .timer__form{ 
+  .timer__form {
     max-width: 100%;
   }
 

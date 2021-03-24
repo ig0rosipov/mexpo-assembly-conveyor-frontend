@@ -8,6 +8,7 @@ body {
 }
 
 .app {
+  width: 100%;
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -18,4 +19,5 @@ body {
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
+  transition: .3s;
 }
