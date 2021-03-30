@@ -2,6 +2,8 @@ import "./Timer.css";
 
 const Timer = ({
   timer,
+  emergencyStatus,
+  sensorStatus,
   pad,
   handleContinue,
   handlePause,
@@ -10,28 +12,46 @@ const Timer = ({
   resetAlarm,
   colorizeTimer,
   colorizeMessage,
+  isPausePressed,
 }) => {
   const { currentTime, phase } = timer;
   const [hours, minutes, seconds] = currentTime;
-
 
   const phaseRU = {
     running: "Перемещение",
     production: "Производство",
     starting: "Запуск",
     emergency: "Нажата аварийная кнопка",
+    sensor: "Сработал аварийный датчик",
   };
 
   return (
     <section className="timer">
-      <p
-        className="timer__main"
-        style={colorizeTimer(minutes, seconds)}
-      >{`${pad(hours, 2)}:${pad(minutes, 2)}:${pad(seconds, 2)}`}</p>
-      <p
-        className="timer__phase"
-        style={colorizeMessage(phase)}
-      >{`${phaseRU[phase]}`}</p>
+      <div
+        className={`timer__content ${
+          (emergencyStatus || sensorStatus) && "timer__content_type_error"
+        }`}
+      >
+        <p
+          className={`timer__main ${
+            (emergencyStatus || sensorStatus) && "timer__main_type_error"
+          }`}
+          style={colorizeTimer(minutes, seconds)}
+        >{`${pad(hours, 2)}:${pad(minutes, 2)}:${pad(seconds, 2)}`}</p>
+        <p
+          className={`timer__phase ${
+            (emergencyStatus || sensorStatus) && "timer__phase_type_error"
+          }`}
+          style={colorizeMessage(phase)}
+        >
+          {emergencyStatus
+            ? phaseRU.emergency
+            : sensorStatus
+            ? phaseRU.sensor
+            : `${phaseRU[phase]}`}
+        </p>
+      </div>
+
       <div className="timer__controls">
         <form className="timer__form" onSubmit={onSubmit}>
           <label className="timer__label" htmlFor="stop-time">
@@ -60,26 +80,35 @@ const Timer = ({
             onChange={handleTimeInput}
           ></input>
 
-          <button className="timer__submit-button">Подтвердить</button>
+          <button
+            disabled={emergencyStatus || sensorStatus}
+            className={`timer__button timer__button_type_submit ${
+              emergencyStatus || sensorStatus ? "timer__button_disabled" : ""
+            } `}
+          >
+            Подтвердить
+          </button>
         </form>
         <div className="timer__buttons">
           <button
-            disabled={phase === "emergency"}
-            className={`timer__control-button timer__control-button_type_continue ${
-              phase === "emergency" ? "timer__control-button_disabled" : ""
+            disabled={emergencyStatus || sensorStatus}
+            className={`timer__button timer__button_type_continue ${
+              emergencyStatus || sensorStatus ? "timer__button_disabled" : ""
             }`}
             onClick={handleContinue}
           >
             Продолжить
           </button>
           <button
-            className="timer__control-button timer__control-button_type_pause"
+            className={`timer__button timer__button_type_pause ${
+              isPausePressed ? "timer__button_pressed" : ""
+            }`}
             onClick={handlePause}
           >
             Пауза
           </button>
           <button
-            className="timer__control-button timer__control-button_type_emergency"
+            className="timer__button timer__button_type_emergency"
             onClick={resetAlarm}
           >
             Сброс аварии

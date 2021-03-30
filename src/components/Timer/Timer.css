@@ -1,5 +1,5 @@
 .timer {
-  width: 90%;
+  width: calc(100% - 100px);
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -7,24 +7,50 @@
   align-items: center;
 }
 
+.timer__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  min-height: 40vh;
+}
+
+.timer__content_type_error {
+  flex-direction: column-reverse;
+}
+
 .timer__main {
   width: 100%;
   text-align: center;
   margin: 0;
   padding: 0;
-  font-size: 20vw;
+  font-size: 22vw;
   font-weight: 200;
   line-height: 1;
   letter-spacing: -0.05em;
   transition: 0.5s;
 }
 
+.timer__main_type_error {
+  font-size: 5vw;
+}
+
 .timer__phase {
+  width: 100%;
+  text-align: center;
   margin: 0;
   padding: 0;
-  font-size: 3vw;
+  font-size: 4vw;
   color: rgba(255, 255, 255, 0.6);
   letter-spacing: 3px;
+}
+
+.timer__phase_type_error {
+  font-size: 6vw;
+  font-weight: 600;
+  margin-bottom: 100px;
+  transform: scale(1, 1.3);
 }
 
 .timer__form {
@@ -83,65 +109,69 @@
   padding: 10px;
 }
 
-.timer__submit-button {
-  margin-top: 60px;
-  background: none;
+.timer__button {
   outline: none;
   color: white;
-  border: 2px solid #2976ec;
   border-radius: 3px;
   box-sizing: border-box;
   padding: 20px 30px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: 0.3s;
   width: 100%;
+  font-size: 22px;
+  border-width: 2px;
+  border-style: solid;
 }
 
-.timer__submit-button:hover {
-  background-color: #2976ec;
+.timer__button:hover {
+  opacity: 0.6;
 }
 
 .timer__control-button {
   width: 100%;
   max-width: 200px;
-  border: 2px solid;
-  color: white;
-  box-sizing: border-box;
-  padding: 20px 0;
-  cursor: pointer;
-  transition: background-color 0.3s, opacity 0.3s;
-  border-radius: 3px;
-  font-size: 22px;
-  outline: none;
 }
 
 .timer__control-button:hover {
-  opacity: 0.7;
+  opacity: 0.6;
 }
 
-.timer__control-button_disabled {
+.timer__button_pressed {
   background: none !important;
-  opacity: 0.2;
-  cursor: inherit;
+  border-width: 8px;
 }
 
 .timer__control-button_disabled:hover {
   opacity: 0.2;
 }
 
-.timer__control-button_type_continue {
+.timer__button_type_submit {
+  margin-top: 60px;
+  background: #2976ec;
+  border-color: #2976ec;
+}
+
+.timer__button_type_continue {
   border-color: #18d256;
   background: #18d256;
 }
 
-.timer__control-button_type_pause {
+.timer__button_type_pause {
   border-color: #ffa742;
   background-color: #ffa742;
 }
 
-.timer__control-button_type_emergency {
+.timer__button_type_emergency {
   border-color: crimson;
   background-color: crimson;
+}
+
+.timer__button_disabled {
+  border-width: 2px;
+  border-style: solid;
+  background: none;
+  opacity: 0.2;
+  cursor: inherit;
 }
 
 @media screen and (max-width: 630px) {
@@ -159,7 +189,7 @@
     max-width: 100%;
   }
 
-  .timer__control-button {
+  .timer__button {
     max-width: 100%;
     margin-bottom: 30px;
   }

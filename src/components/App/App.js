@@ -14,31 +14,60 @@ const App = () => {
     currentTime: [0, 0, 0],
     phase: "starting",
   });
+  const [emergencyStatus, setEmergencyStatus] = useState(false);
+  const [sensorStatus, setSensorStatus] = useState(false);
+  const [isPausePressed, setIsPausePressed] = useState(false);
 
   const handleServerData = (data) => {
-    const { currentTime, phase } = data;
+    console.log(data);
+    const { currentTime, phase, emergency, sensor } = data;
     const [hours, minutes, seconds] = currentTime;
     setTimer({
       currentTime: [hours, minutes, seconds],
       phase,
     });
-
+    setEmergencyStatus(emergency);
+    setSensorStatus(sensor);
   };
 
   const handleContinue = () => {
-    socket.emit("timerState", false);
-
-    socket.emit("changeTimer", {
-      ...timerSettings,
-      ...timer,
-    });
-    socket.on("time", (serverData) => {
-      handleServerData(serverData);
-    });
+    setIsPausePressed(false);
+    if (timer.phase === "running") {
+      api
+        .runConveyor()
+        .then((data) => {
+          console.log(data);
+          socket.emit("timerState", false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      api
+        .stopConveyor()
+        .then((data) => {
+          console.log(data);
+          socket.emit("timerState", false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   const handlePause = () => {
-    socket.emit("timerState", true);
+    setIsPausePressed(true);
+    api
+      .stopConveyor()
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        socket.emit("timerState", true);
+      });
   };
 
   const setTimeSubmit = (e) => {
@@ -51,6 +80,7 @@ const App = () => {
     socket.on("time", (serverData) => {
       handleServerData(serverData);
     });
+    setIsPausePressed(false);
   };
 
   const handleTimeInput = (e) => {
@@ -66,6 +96,9 @@ const App = () => {
   };
 
   const resetAlarm = () => {
+    setEmergencyStatus(false);
+    setSensorStatus(false);
+    setIsPausePressed(true);
     socket.emit("resetAlarm", "test");
   };
 
@@ -75,6 +108,10 @@ const App = () => {
       if (serverData) {
         handleServerData(serverData);
       }
+    });
+    socket.on("alarm", (status) => {
+      console.log("STATUS: ", status);
+      setEmergencyStatus(status);
     });
   }, []);
 
@@ -102,12 +139,6 @@ const App = () => {
     }
   }, [timer.phase]);
 
-  useEffect(() => {
-    socket.on((serverData) => {
-      handleServerData(serverData);
-    });
-  }, [socket]);
-
   const colors = {
     green: {
       color: "#07de76",
@@ -121,16 +152,19 @@ const App = () => {
     red: {
       color: "#DF324D",
     },
+    flame: {
+      color: "#DF4E22",
+    },
     transparentWhite: {
       color: "rgba(255, 255, 255, .6)",
     },
   };
 
   const colorizeTimer = (minutes, seconds) => {
-    if (minutes <= 0 && seconds <= 5 && seconds >= 3) {
+    if (isPausePressed) {
       return colors.yellow;
     }
-    if (minutes <= 0 && seconds <= 2) {
+    if (emergencyStatus) {
       return colors.red;
     }
     if (timer.phase === "production") {
@@ -140,7 +174,7 @@ const App = () => {
   };
 
   const colorizeMessage = (phase) => {
-    if (phase !== "emergency") {
+    if (!emergencyStatus && !sensorStatus) {
       return colors.transparentWhite;
     }
 
@@ -157,6 +191,8 @@ const App = () => {
     <div className="app">
       <Timer
         timer={timer}
+        emergencyStatus={emergencyStatus}
+        sensorStatus={sensorStatus}
         pad={pad}
         handleContinue={handleContinue}
         handlePause={handlePause}
@@ -165,6 +201,8 @@ const App = () => {
         resetAlarm={resetAlarm}
         colorizeTimer={colorizeTimer}
         colorizeMessage={colorizeMessage}
+        isPausePressed={isPausePressed}
+        setIsPausePressed={setIsPausePressed}
       />
     </div>
   );
