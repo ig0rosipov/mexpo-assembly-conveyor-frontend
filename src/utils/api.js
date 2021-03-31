@@ -1,7 +1,7 @@
 class Api {
   constructor() {
     this._arduinoUrl = "http://192.168.25.143";
-    this._serverUrl = "http://192.168.25.39:5000/";
+    this._serverUrl = "http://192.168.13.123:5000/";
   }
 
   _handleOriginalResponse(result) {
