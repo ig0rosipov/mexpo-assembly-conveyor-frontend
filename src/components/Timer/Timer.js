@@ -1,19 +1,28 @@
 import "./Timer.css";
+import { useEffect } from "react";
 
 const Timer = ({
-  timer,
   emergencyStatus,
   sensorStatus,
-  pad,
-  handleContinue,
-  handlePause,
-  onSubmit,
-  handleTimeInput,
-  resetAlarm,
+  timer,
   colorizeTimer,
   colorizeMessage,
-  isPausePressed,
+  pad,
+  socket,
+  setEmergencyStatus,
+  handleServerData,
 }) => {
+  useEffect(() => {
+    socket.on("time", (serverData) => {
+      if (serverData) {
+        handleServerData(serverData);
+      }
+    });
+    socket.on("alarm", (status) => {
+      setEmergencyStatus(status);
+    });
+  }, []);
+
   const { currentTime, phase } = timer;
   const [hours, minutes, seconds] = currentTime;
 
@@ -50,74 +59,6 @@ const Timer = ({
             ? phaseRU.sensor
             : `${phaseRU[phase]}`}
         </p>
-      </div>
-
-      <div className="timer__controls">
-        <form className="timer__form" onSubmit={onSubmit}>
-          <label className="timer__label" htmlFor="stop-time">
-            Время паузы
-          </label>
-          <input
-            className="timer__time-input"
-            id="stop-time"
-            type="time"
-            name="stopTime"
-            step="1"
-            defaultValue="00:00:00"
-            onChange={handleTimeInput}
-          ></input>
-
-          <label className="timer__label" htmlFor="run-time">
-            Время движения
-          </label>
-          <input
-            className="timer__time-input"
-            type="time"
-            name="runTime"
-            id="run-time"
-            step="1"
-            defaultValue="00:00:00"
-            onChange={handleTimeInput}
-          ></input>
-            <div className="timer__form-buttons">
-          <button
-            disabled={emergencyStatus || sensorStatus}
-            className={`timer__button timer__button_type_submit ${
-              emergencyStatus || sensorStatus ? "timer__button_disabled" : ""
-            } `}
-          >
-            Запустить
-          </button>
-          <button className="timer__button timer__button_type_save-preset">
-            Сохранить
-          </button>
-            </div>
-        </form>
-        <div className="timer__buttons">
-          <button
-            disabled={emergencyStatus || sensorStatus}
-            className={`timer__button timer__button_type_continue ${
-              emergencyStatus || sensorStatus ? "timer__button_disabled" : ""
-            }`}
-            onClick={handleContinue}
-          >
-            Продолжить
-          </button>
-          <button
-            className={`timer__button timer__button_type_pause ${
-              isPausePressed ? "timer__button_pressed" : ""
-            }`}
-            onClick={handlePause}
-          >
-            Пауза
-          </button>
-          <button
-            className="timer__button timer__button_type_emergency"
-            onClick={resetAlarm}
-          >
-            Сброс аварии
-          </button>
-        </div>
       </div>
     </section>
   );

@@ -1,0 +1,54 @@
+.controls {
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.controls__buttons {
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.controls__button {
+  margin-bottom: 20px;
+}
+
+.controls__button:last-child {
+  margin-bottom: 0;
+}
+
+.controls__button_type_continue {
+  border-color: #18d256;
+  background: #18d256;
+}
+
+.controls__button_type_pause {
+  border-color: #ffa742;
+  background-color: #ffa742;
+}
+
+.controls__button_type_emergency {
+  border-color: crimson;
+  background-color: crimson;
+}
+
+@media (max-width: 630px) {
+  .controls {
+    flex-direction: column;
+  }
+
+  .controls__buttons {
+    max-width: 100%;
+  }
+
+  .controls__button {
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+}

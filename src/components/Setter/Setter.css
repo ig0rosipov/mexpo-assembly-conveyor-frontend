@@ -1,0 +1,87 @@
+.setter {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-right: 60px;
+}
+
+.setter__form-buttons {
+  margin-top: 40px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.setter__label {
+  font-size: 22px;
+  margin-bottom: 6px;
+}
+
+.setter__time-input {
+  width: 100%;
+  background: none;
+  outline: none;
+  color: white;
+  box-sizing: border-box;
+  border: 1px solid white;
+  margin-bottom: 18px;
+  font-size: 24px;
+}
+
+.setter__time-input:last-of-type {
+  margin: 0;
+}
+
+.setter__time-input::-webkit-datetime-edit-fields-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.setter__time-input::-webkit-calendar-picker-indicator {
+  background-color: white;
+  padding: 10px;
+}
+
+.setter__button_type_submit {
+  max-width: 150px;
+  padding: 20px 0;
+  background: #148aca;
+  border-color: #148aca;
+}
+
+.setter__button_type_save-preset {
+  max-width: 150px;
+  padding: 20px 0;
+  border-color: #1d44c8;
+  background: #1d44c8;
+}
+
+@media (max-width: 767px) {
+  .setter {
+    margin-right: 0;
+    margin-bottom: 60px;
+  }
+}
+
+@media (max-width: 630px) {
+  .setter {
+    max-width: 100%;
+  }
+
+  .setter__form-buttons {
+    flex-direction: column;
+  }
+
+  .setter__button {
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .setter__button:last-child {
+    margin-bottom: 0;
+  }
+}

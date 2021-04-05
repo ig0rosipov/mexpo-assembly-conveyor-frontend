@@ -1,0 +1,34 @@
+.button {
+  outline: none;
+  color: white;
+  border-radius: 3px;
+  box-sizing: border-box;
+  padding: 20px 0;
+  cursor: pointer;
+  transition: 0.3s;
+  width: 100%;
+  font-size: 22px;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.button:hover {
+  opacity: 0.6;
+}
+
+.button_pressed {
+  background: none !important;
+  border-width: 8px;
+}
+
+.button_disabled:hover {
+  opacity: 0.2;
+}
+
+.button_disabled {
+  border-width: 2px;
+  border-style: solid;
+  background: none;
+  opacity: 0.2;
+  cursor: inherit;
+}
