@@ -1,6 +1,6 @@
 class Api {
   constructor() {
-    this._arduinoUrl = "http://192.168.25.143";
+    this._arduinoUrl = "http://192.168.13.116";
     this._serverUrl = "http://192.168.13.123:5000/";
   }
 
@@ -32,32 +32,6 @@ class Api {
       .then(this._handleOriginalResponse)
       .then((data) => data.json());
   }
-
-  //   checkState() {
-  //     return fetch(this._arduinoUrl + "/check", {
-  //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     })
-  //       .then(this._handleOriginalResponse)
-  //       .then((data) => data.json());
-  //   }
-
-  //   setTime({ stopTime, runTime }) {
-  //     return fetch(this._serverUrl + "/set-time", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         stopTime,
-  //         runTime,
-  //       }),
-  //     })
-  //       .then(this._handleOriginalResponse)
-  //       .then((data) => data.json());
-  //   }
 }
 
 const api = new Api();

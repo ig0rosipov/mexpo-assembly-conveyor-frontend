@@ -1,0 +1,9 @@
+{
+  "apps": [
+      {
+          "name": "frontend",
+          "script": "serve -s build",
+          "args" : "start"
+      }
+  ]
+}

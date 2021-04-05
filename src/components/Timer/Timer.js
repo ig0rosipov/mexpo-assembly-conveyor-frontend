@@ -79,15 +79,19 @@ const Timer = ({
             defaultValue="00:00:00"
             onChange={handleTimeInput}
           ></input>
-
+            <div className="timer__form-buttons">
           <button
             disabled={emergencyStatus || sensorStatus}
             className={`timer__button timer__button_type_submit ${
               emergencyStatus || sensorStatus ? "timer__button_disabled" : ""
             } `}
           >
-            Подтвердить
+            Запустить
           </button>
+          <button className="timer__button timer__button_type_save-preset">
+            Сохранить
+          </button>
+            </div>
         </form>
         <div className="timer__buttons">
           <button

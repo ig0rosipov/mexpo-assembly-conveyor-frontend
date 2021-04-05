@@ -19,7 +19,6 @@ const App = () => {
   const [isPausePressed, setIsPausePressed] = useState(false);
 
   const handleServerData = (data) => {
-    console.log(data);
     const { currentTime, phase, emergency, sensor } = data;
     const [hours, minutes, seconds] = currentTime;
     setTimer({
@@ -104,13 +103,11 @@ const App = () => {
 
   useEffect(() => {
     socket.on("time", (serverData) => {
-      console.log(serverData);
       if (serverData) {
         handleServerData(serverData);
       }
     });
     socket.on("alarm", (status) => {
-      console.log("STATUS: ", status);
       setEmergencyStatus(status);
     });
   }, []);

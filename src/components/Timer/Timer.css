@@ -55,11 +55,19 @@
 
 .timer__form {
   width: 100%;
-  max-width: 300px;
+  max-width: 400px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+}
+
+.timer__form-buttons {
+  margin-top: 40px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .timer__controls {
@@ -146,9 +154,17 @@
 }
 
 .timer__button_type_submit {
-  margin-top: 60px;
-  background: #2976ec;
-  border-color: #2976ec;
+  max-width: 150px;
+  padding: 20px 0;
+  background: #148ACA;
+  border-color: #148ACA;
+}
+
+.timer__button_type_save-preset {
+  max-width: 150px;
+  padding: 20px 0;
+  border-color: #1D44C8;
+  background: #1D44C8;
 }
 
 .timer__button_type_continue {
