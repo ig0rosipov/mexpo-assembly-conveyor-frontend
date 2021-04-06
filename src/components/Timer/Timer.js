@@ -21,6 +21,7 @@ const Timer = ({
     socket.on("alarm", (status) => {
       setEmergencyStatus(status);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const { currentTime, phase } = timer;

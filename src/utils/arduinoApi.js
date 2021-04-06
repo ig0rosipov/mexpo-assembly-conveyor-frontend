@@ -1,7 +1,6 @@
-class Api {
+class ArduinoApi {
   constructor() {
     this._arduinoUrl = "http://192.168.13.116";
-    this._serverUrl = "http://192.168.13.123:5000/";
   }
 
   _handleOriginalResponse(result) {
@@ -34,6 +33,6 @@ class Api {
   }
 }
 
-const api = new Api();
+const arduinoApi = new ArduinoApi();
 
-export default api;
+export default arduinoApi;

@@ -1,6 +1,6 @@
 import "./Main.css";
 import { useEffect, useState } from "react";
-import api from "../../utils/api";
+import arduinoApi from "../../utils/arduinoApi";
 import Timer from "../Timer/Timer";
 import Setter from "../Setter/Setter";
 import Controls from "../Controls/Controls";
@@ -32,7 +32,7 @@ const Main = ({ socket }) => {
   const handleContinue = () => {
     setIsPausePressed(false);
     if (timer.phase === "running") {
-      api
+      arduinoApi
         .runConveyor()
         .then((data) => {
           console.log(data);
@@ -42,7 +42,7 @@ const Main = ({ socket }) => {
           console.log(err);
         });
     } else {
-      api
+      arduinoApi
         .stopConveyor()
         .then((data) => {
           console.log(data);
@@ -56,7 +56,7 @@ const Main = ({ socket }) => {
 
   const handlePause = () => {
     setIsPausePressed(true);
-    api
+    arduinoApi
       .stopConveyor()
       .then((data) => {
         console.log(data);
@@ -103,7 +103,7 @@ const Main = ({ socket }) => {
 
   useEffect(() => {
     if (timer.phase === "running") {
-      api
+      arduinoApi
         .runConveyor()
         .then((res) => {
           console.log(res);
@@ -114,7 +114,7 @@ const Main = ({ socket }) => {
     }
 
     if (timer.phase === "production") {
-      api
+      arduinoApi
         .stopConveyor()
         .then((res) => {
           console.log(res);
