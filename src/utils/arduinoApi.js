@@ -1,6 +1,8 @@
+import { config } from "../configs/config";
+
 class ArduinoApi {
   constructor() {
-    this._arduinoUrl = "http://192.168.13.116";
+    this._arduinoUrl = config.arduinoUrl;
   }
 
   _handleOriginalResponse(result) {

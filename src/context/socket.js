@@ -1,7 +1,8 @@
 import { io } from "socket.io-client";
+import { config } from "../configs/config";
 import React from "react";
 
-const SOCKET_URL = "http://lvh.me:7000";
+const SOCKET_URL = config.mainAddress;
 
-export const socket = io(SOCKET_URL);
+export const socket = io(SOCKET_URL, { path: config.socketIoPath });
 export const SocketContext = React.createContext();

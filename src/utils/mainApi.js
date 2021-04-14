@@ -1,6 +1,8 @@
+import { config } from "../configs/config";
+
 class MainApi {
   constructor() {
-    this._baseUrl = "http://192.168.24.175";
+    this._baseUrl = config.mainApi;
   }
 
   _handleResponse(result) {
