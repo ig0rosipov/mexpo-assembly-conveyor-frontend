@@ -1,5 +1,4 @@
 import "./Setter.css";
-
 const Setter = ({
   setTimeSubmit,
   handleTimeInput,

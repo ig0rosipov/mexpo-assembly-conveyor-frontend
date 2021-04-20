@@ -4,12 +4,12 @@ import { useEffect } from "react";
 const Timer = ({
   emergencyStatus,
   sensorStatus,
+  manualStatus,
   timer,
   colorizeTimer,
   colorizeMessage,
   pad,
   socket,
-  setEmergencyStatus,
   handleServerData,
 }) => {
   useEffect(() => {
@@ -17,9 +17,6 @@ const Timer = ({
       if (serverData) {
         handleServerData(serverData);
       }
-    });
-    socket.on("alarm", (status) => {
-      setEmergencyStatus(status);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -33,7 +30,21 @@ const Timer = ({
     starting: "Запуск",
     emergency: "Нажата аварийная кнопка",
     sensor: "Сработал аварийный датчик",
+    manual: "Включён ручной режим"
   };
+
+  const displayMessage = () => {
+    if(emergencyStatus) {
+      return phaseRU.emergency
+    }
+    if(sensorStatus) {
+      return phaseRU.sensor;
+    }
+    if(manualStatus) {
+      return phaseRU.manual;
+    }
+    return phaseRU[phase];
+  }
 
   return (
     <section className="timer">
@@ -54,11 +65,7 @@ const Timer = ({
           }`}
           style={colorizeMessage(phase)}
         >
-          {emergencyStatus
-            ? phaseRU.emergency
-            : sensorStatus
-            ? phaseRU.sensor
-            : `${phaseRU[phase]}`}
+          {displayMessage()}
         </p>
       </div>
     </section>

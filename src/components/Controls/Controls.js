@@ -1,5 +1,5 @@
 import "./Controls.css";
-
+import { useState } from "react";
 const Controls = ({
   emergencyStatus,
   sensorStatus,
@@ -8,6 +8,12 @@ const Controls = ({
   handlePause,
   resetAlarm,
 }) => {
+  const [continueButtonText, setContinueButtonText] = useState("Продолжить");
+
+  const onContinue = () => {
+    handleContinue(setContinueButtonText);
+  };
+
   return (
     <div className="controls">
       <div className="controls__buttons">
@@ -16,9 +22,9 @@ const Controls = ({
           className={`controls__button controls__button_type_continue button ${
             emergencyStatus || sensorStatus ? "button_disabled" : ""
           }`}
-          onClick={handleContinue}
+          onClick={onContinue}
         >
-          Продолжить
+          {continueButtonText}
         </button>
         <button
           className={`controls__button controls__button_type_pause button ${

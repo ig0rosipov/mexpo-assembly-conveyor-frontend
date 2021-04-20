@@ -16,26 +16,30 @@ const Main = ({ socket }) => {
   });
   const [emergencyStatus, setEmergencyStatus] = useState(false);
   const [sensorStatus, setSensorStatus] = useState(false);
+  const [manualStatus, setManualStatus] = useState(false);
   const [isPausePressed, setIsPausePressed] = useState(false);
 
   const handleServerData = (data) => {
-    const { currentTime, phase, emergency, sensor } = data;
-    const [hours, minutes, seconds] = currentTime;
+    const { currentTime, phase, emergency, sensor, manual } = data;
     setTimer({
-      currentTime: [hours, minutes, seconds],
+      currentTime,
       phase,
     });
     setEmergencyStatus(emergency);
     setSensorStatus(sensor);
+    setManualStatus(manual);
   };
 
-  const handleContinue = () => {
-    setIsPausePressed(false);
+  const handleContinue = (setButtonText) => {
+    setButtonText("Запуск...");
     if (timer.phase === "running") {
       arduinoApi
         .runConveyor()
         .then((data) => {
           console.log(data);
+          setButtonText("Продолжить");
+          setIsPausePressed(false);
+          setManualStatus(false);
           socket.emit("timerState", false);
         })
         .catch((err) => {
@@ -46,6 +50,9 @@ const Main = ({ socket }) => {
         .stopConveyor()
         .then((data) => {
           console.log(data);
+          setButtonText("Продолжить");
+          setIsPausePressed(false);
+          setManualStatus(false);
           socket.emit("timerState", false);
         })
         .catch((err) => {
@@ -71,6 +78,16 @@ const Main = ({ socket }) => {
 
   const setTimeSubmit = (e) => {
     e.preventDefault();
+    arduinoApi
+      .stopConveyor()
+      .then((data) => {
+        console.log(data);
+        setIsPausePressed(false);
+        setManualStatus(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     socket.emit("changeTimer", {
       ...timerSettings,
       currentTime: [0, 0, 4],
@@ -173,17 +190,23 @@ const Main = ({ socket }) => {
     return number;
   };
 
+  useEffect(() => {
+    if (manualStatus) {
+      handlePause();
+    }
+  }, [manualStatus]);
+
   return (
     <main className="main">
       <Timer
         emergencyStatus={emergencyStatus}
         sensorStatus={sensorStatus}
+        manualStatus={manualStatus}
         timer={timer}
         colorizeTimer={colorizeTimer}
         colorizeMessage={colorizeMessage}
         pad={pad}
         socket={socket}
-        setEmergencyStatus={setEmergencyStatus}
         handleServerData={handleServerData}
       />
 
