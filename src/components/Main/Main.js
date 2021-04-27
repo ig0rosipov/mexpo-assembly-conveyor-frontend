@@ -4,6 +4,7 @@ import arduinoApi from "../../utils/arduinoApi";
 import Timer from "../Timer/Timer";
 import Setter from "../Setter/Setter";
 import Controls from "../Controls/Controls";
+import PresetList from "../PresetList/PresetList";
 
 const Main = ({ socket, presets }) => {
   const [timerSettings, setTimerSettings] = useState({
@@ -217,6 +218,7 @@ const Main = ({ socket, presets }) => {
           emergencyStatus={emergencyStatus}
           sensorStatus={sensorStatus}
         />
+        <PresetList presets={presets} />
         <Controls
           emergencyStatus={emergencyStatus}
           sensorStatus={sensorStatus}

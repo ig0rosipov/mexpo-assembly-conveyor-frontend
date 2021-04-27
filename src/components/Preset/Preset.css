@@ -1,0 +1,45 @@
+.preset {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.preset__name {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.preset__time-info {
+  width: 100%;
+  max-width: 200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.preset__time-description {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.preset__time-value {
+  margin: 0;
+  font-size: 12px;
+}
+
+.preset__button {
+  cursor: pointer;
+}
+
+.preset__buttons {
+  width: 100%;
+  max-width: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
