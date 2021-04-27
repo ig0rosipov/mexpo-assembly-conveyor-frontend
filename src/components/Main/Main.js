@@ -5,7 +5,7 @@ import Timer from "../Timer/Timer";
 import Setter from "../Setter/Setter";
 import Controls from "../Controls/Controls";
 
-const Main = ({ socket }) => {
+const Main = ({ socket, presets }) => {
   const [timerSettings, setTimerSettings] = useState({
     stopTime: [0, 0, 0],
     runTime: [0, 0, 0],

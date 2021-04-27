@@ -13,7 +13,7 @@ class MainApi {
   }
 
   getAllPresets() {
-    return fetch(this._baseUrl, +"/presets").then(this._handleResponse);
+    return fetch(this._baseUrl + "/presets").then(this._handleResponse);
   }
 
   addPreset({ name, runTime, stopTime }) {
@@ -36,3 +36,7 @@ class MainApi {
     }).then(this._handleResponse);
   }
 }
+
+const mainApi = new MainApi();
+
+export default mainApi;
