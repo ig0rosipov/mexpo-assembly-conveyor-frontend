@@ -1,0 +1,115 @@
+.preset-popup {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.6);
+  visibility: visible;
+  transition: opacity ease-out 0.3s;
+}
+
+.preset-popup_hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.preset-popup__close-button {
+  background: url(../../images/close-button.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: -35px;
+  right: -35px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.preset-popup__close-button:hover {
+  opacity: 0.6;
+}
+
+.preset-popup__form {
+  background: white;
+  color: black;
+  box-sizing: border-box;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 10px;
+  position: relative;
+}
+
+.preset-popup__heading {
+  font-size: 48px;
+  font-weight: 600;
+  margin: 0 0 96px;
+}
+
+.preset-popup__input {
+  width: 100%;
+  font-size: 18px;
+  box-sizing: border-box;
+  padding: 10px 0;
+  border: none;
+  border-bottom: 2px solid #000;
+  outline: none;
+}
+
+.preset-popup__input:focus {
+  border-color: rgb(65, 86, 206);
+}
+
+.preset-popup__input_type_error:focus {
+  border-color: crimson;
+}
+
+.preset-popup__validation-error {
+  color: crimson;
+  font-size: 14px;
+  margin-top: 14px;
+}
+
+.preset-popup__validation-error_hidden {
+  display: none;
+}
+
+.preset-popup__submit-button {
+  width: 100%;
+  background: black;
+  color: white;
+  font-size: 24px;
+  font-weight: 500;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  padding: 15px 0;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  margin-top: 80px;
+}
+
+.preset-popup__submit-button:hover {
+  opacity: 0.86;
+}
+
+.preset-popup__submit-button_disabled {
+  background: none;
+  color: black;
+  border: 2px solid black;
+  opacity: 0.5;
+  cursor: auto;
+}
+
+.preset-popup__submit-button_disabled:hover {
+  opacity: 0.5;
+}

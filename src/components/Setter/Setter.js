@@ -4,7 +4,13 @@ const Setter = ({
   handleTimeInput,
   emergencyStatus,
   sensorStatus,
+  setIsPresetPopupOpened,
 }) => {
+  const onSaveButton = (e) => {
+    e.preventDefault();
+    setIsPresetPopupOpened(true);
+  };
+
   return (
     <form className="setter" onSubmit={setTimeSubmit}>
       <label className="setter__label" htmlFor="stop-time">
@@ -41,7 +47,10 @@ const Setter = ({
         >
           Запустить
         </button>
-        <button className="setter__button setter__button_type_save-preset button">
+        <button
+          className="setter__button setter__button_type_save-preset button"
+          onClick={onSaveButton}
+        >
           Сохранить
         </button>
       </div>

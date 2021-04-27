@@ -5,6 +5,7 @@ import Timer from "../Timer/Timer";
 import Setter from "../Setter/Setter";
 import Controls from "../Controls/Controls";
 import PresetList from "../PresetList/PresetList";
+import PresetPopup from "../PresetPopup/PresetPopup";
 
 const Main = ({ socket, presets }) => {
   const [timerSettings, setTimerSettings] = useState({
@@ -19,6 +20,7 @@ const Main = ({ socket, presets }) => {
   const [sensorStatus, setSensorStatus] = useState(false);
   const [manualStatus, setManualStatus] = useState(false);
   const [isPausePressed, setIsPausePressed] = useState(false);
+  const [isPresetPopupOpened, setIsPresetPopupOpened] = useState(true);
 
   const handleServerData = (data) => {
     const { currentTime, phase, emergency, sensor, manual } = data;
@@ -217,6 +219,7 @@ const Main = ({ socket, presets }) => {
           handleTimeInput={handleTimeInput}
           emergencyStatus={emergencyStatus}
           sensorStatus={sensorStatus}
+          setIsPresetPopupOpened={setIsPresetPopupOpened}
         />
         <PresetList presets={presets} />
         <Controls
@@ -228,6 +231,10 @@ const Main = ({ socket, presets }) => {
           resetAlarm={resetAlarm}
         />
       </div>
+      <PresetPopup
+        isPresetPopupOpened={isPresetPopupOpened}
+        setIsPresetPopupOpened={setIsPresetPopupOpened}
+      />
     </main>
   );
 };

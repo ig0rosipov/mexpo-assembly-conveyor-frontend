@@ -1,9 +1,9 @@
-const currentIp = "192.168.25.88";
+const currentIp = "192.168.64.3";
 
 export const config = {
   mainApi: `http://localhost:7000/api`,
   arduinoUrl: "http://192.168.64.254",
-  mainAddress: `http://${currentIp}`,
+  mainAddress: `http://localhost:7000`,
   socketIoPath: "/api/socket.io",
 };
 
