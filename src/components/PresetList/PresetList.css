@@ -1,15 +1,37 @@
 .preset-list {
   width: 100%;
+  max-height: 300px;
   max-width: 600px;
   margin-right: 60px;
   box-sizing: border-box;
   padding: 30px;
-  background: #383838;
+  background: #151515;
   border-radius: 10px;
+  overflow: hidden;
+}
+
+.preset-list__wrapper {
+  box-sizing: border-box;
+  overflow-y: scroll;
+  max-height: 240px;
+}
+
+.preset-list__wrapper::-webkit-scrollbar {
+  display: none;
 }
 
 .preset-list__presets {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+.preset-list__item {
+  box-sizing: border-box;
+  padding: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.preset-list__item:first-child {
+  padding-top: 0;
 }

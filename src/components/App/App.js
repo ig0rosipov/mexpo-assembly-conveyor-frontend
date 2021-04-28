@@ -23,7 +23,7 @@ const App = () => {
   return (
     <div className="app">
       {isInitialDataLoaded ? (
-        <Main socket={socket} presets={presets} />
+        <Main socket={socket} presets={presets} setPresets={setPresets} />
       ) : (
         <Preloader />
       )}

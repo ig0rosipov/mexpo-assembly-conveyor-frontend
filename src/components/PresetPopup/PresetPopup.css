@@ -37,6 +37,8 @@
 }
 
 .preset-popup__form {
+  width: 100%;
+  max-width: 680px;
   background: white;
   color: black;
   box-sizing: border-box;
@@ -50,7 +52,7 @@
 }
 
 .preset-popup__heading {
-  font-size: 48px;
+  font-size: 36px;
   font-weight: 600;
   margin: 0 0 96px;
 }

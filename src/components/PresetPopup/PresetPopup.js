@@ -1,12 +1,39 @@
 import "./PresetPopup.css";
 import { useState } from "react";
 
-const PresetPopup = ({ isPresetPopupOpened, setIsPresetPopupOpened }) => {
+const PresetPopup = ({
+  isPresetPopupOpened,
+  setIsPresetPopupOpened,
+  onPresetPopupSubmit,
+  setPresets,
+  presets,
+}) => {
   const [presetName, setPresetName] = useState({
     value: "",
     isValid: false,
     validationMessage: "",
   });
+  const [buttonText, setButtonText] = useState("Сохранить");
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    setButtonText("Сохранение...");
+    onPresetPopupSubmit(presetName.value)
+      .then((data) => {
+        setButtonText("Успешно!");
+        setPresets([...presets, data]);
+        setTimeout(() => {
+          setIsPresetPopupOpened(false);
+          setButtonText("Сохранить");
+        }, 1500);
+      })
+      .catch(() => {
+        setButtonText("Ошибка");
+        setTimeout(() => {
+          setButtonText("Сохранить");
+        }, 1500);
+      });
+  };
 
   const onOverlayClick = (e) => {
     if (e.currentTarget !== e.target) {
@@ -34,7 +61,7 @@ const PresetPopup = ({ isPresetPopupOpened, setIsPresetPopupOpened }) => {
       }`}
       onClick={onOverlayClick}
     >
-      <form className="preset-popup__form">
+      <form className="preset-popup__form" onSubmit={onSubmit} noValidate>
         <div
           className="preset-popup__close-button"
           onClick={onCloseButton}
@@ -63,7 +90,9 @@ const PresetPopup = ({ isPresetPopupOpened, setIsPresetPopupOpened }) => {
             !presetName.isValid && "preset-popup__submit-button_disabled"
           }`}
           disabled={!presetName.isValid}
-        >{`Сохранить`}</button>
+        >
+          {buttonText}
+        </button>
       </form>
     </section>
   );

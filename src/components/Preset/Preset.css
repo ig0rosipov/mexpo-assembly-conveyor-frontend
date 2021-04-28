@@ -3,14 +3,45 @@
   justify-content: space-between;
   align-items: center;
   box-sizing: border-box;
-  padding: 10px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .preset__name {
+  width: 100%;
+  max-width: 150px;
   margin: 0;
   font-size: 16px;
   font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.preset__name:hover {
+  text-overflow: none;
+  white-space: normal;
+  overflow: inherit;
+  word-wrap: break-word;
+}
+
+.preset__edit-form {
+  width: 100%;
+  max-width: 150px;
+  margin: 0;
+  padding: 0;
+}
+
+.preset__edit-input {
+  width: 100%;
+  max-width: 150px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: #2b2b2b;
+  border: none;
+  color: white;
+  outline: none;
+  padding: 5px;
+  border-radius: 5px;
 }
 
 .preset__time-info {
@@ -30,16 +61,40 @@
 .preset__time-value {
   margin: 0;
   font-size: 12px;
+  margin-top: 3px;
 }
-
-.preset__button {
-  cursor: pointer;
-}
-
 .preset__buttons {
   width: 100%;
   max-width: 100px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.preset__button {
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: 0.2s;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: inherit;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.preset__button:hover {
+  opacity: 0.7;
+}
+
+.preset__button_type_select {
+  background-image: url(../../images/enter.svg);
+}
+
+.preset__button_type_delete {
+  background-image: url(../../images/delete.svg);
 }

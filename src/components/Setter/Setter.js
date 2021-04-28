@@ -5,6 +5,7 @@ const Setter = ({
   emergencyStatus,
   sensorStatus,
   setIsPresetPopupOpened,
+  timerInputs,
 }) => {
   const onSaveButton = (e) => {
     e.preventDefault();
@@ -22,8 +23,8 @@ const Setter = ({
         type="time"
         name="stopTime"
         step="1"
-        defaultValue="00:00:00"
         onChange={handleTimeInput}
+        value={timerInputs.stopTime}
       ></input>
 
       <label className="setter__label" htmlFor="run-time">
@@ -35,7 +36,7 @@ const Setter = ({
         name="runTime"
         id="run-time"
         step="1"
-        defaultValue="00:00:00"
+        value={timerInputs.runTime}
         onChange={handleTimeInput}
       ></input>
       <div className="setter__form-buttons">
@@ -48,8 +49,16 @@ const Setter = ({
           Запустить
         </button>
         <button
-          className="setter__button setter__button_type_save-preset button"
+          className={`setter__button setter__button_type_save-preset button ${
+            (timerInputs.runTime === "00:00:00" ||
+              timerInputs.stopTime === "00:00:00") &&
+            "button_disabled"
+          }`}
           onClick={onSaveButton}
+          disabled={
+            timerInputs.runTime === "00:00:00" ||
+            timerInputs.stopTime === "00:00:00"
+          }
         >
           Сохранить
         </button>

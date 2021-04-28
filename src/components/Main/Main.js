@@ -6,8 +6,12 @@ import Setter from "../Setter/Setter";
 import Controls from "../Controls/Controls";
 import PresetList from "../PresetList/PresetList";
 import PresetPopup from "../PresetPopup/PresetPopup";
-
-const Main = ({ socket, presets }) => {
+import mainApi from "../../utils/mainApi";
+const Main = ({ socket, presets, setPresets }) => {
+  const [timerInputs, setTimerInputs] = useState({
+    stopTime: "00:00:00",
+    runTime: "00:00:00",
+  });
   const [timerSettings, setTimerSettings] = useState({
     stopTime: [0, 0, 0],
     runTime: [0, 0, 0],
@@ -20,7 +24,7 @@ const Main = ({ socket, presets }) => {
   const [sensorStatus, setSensorStatus] = useState(false);
   const [manualStatus, setManualStatus] = useState(false);
   const [isPausePressed, setIsPausePressed] = useState(false);
-  const [isPresetPopupOpened, setIsPresetPopupOpened] = useState(true);
+  const [isPresetPopupOpened, setIsPresetPopupOpened] = useState(false);
 
   const handleServerData = (data) => {
     const { currentTime, phase, emergency, sensor, manual } = data;
@@ -102,16 +106,61 @@ const Main = ({ socket, presets }) => {
     setIsPausePressed(false);
   };
 
-  const handleTimeInput = (e) => {
-    const name = e.target.name;
-    const val = e.target.value.split(":").map((elem) => parseInt(elem));
-    if (val.length < 3) {
-      val.push(0);
+  const parseTime = (timeString) => {
+    const result = timeString.split(":").map((elem) => parseInt(elem));
+    if (result.length < 3) {
+      result.push(0);
     }
+
+    return result;
+  };
+
+  const changeTimeValues = (inputName, array, string) => {
     setTimerSettings({
       ...timerSettings,
-      [name]: val,
+      [inputName]: array,
     });
+
+    setTimerInputs({
+      ...timerInputs,
+      [inputName]: string,
+    });
+  };
+
+  const handleTimeInput = (e) => {
+    console.log(e.target.value);
+    const name = e.target.name;
+    const val = parseTime(e.target.value);
+    changeTimeValues(name, val, e.target.value);
+  };
+
+  const onPresetSelect = ({ stopTime, runTime }) => {
+    setTimerSettings({
+      ...timerSettings,
+      stopTime: parseTime(stopTime),
+      runTime: parseTime(runTime),
+    });
+
+    setTimerInputs({
+      ...timerInputs,
+      stopTime,
+      runTime,
+    });
+  };
+
+  const onPresetPopupSubmit = (name) => {
+    const { runTime, stopTime } = timerInputs;
+    console.log(name, runTime, stopTime);
+    return mainApi.addPreset({ name, runTime, stopTime });
+  };
+
+  const onDeletePreset = (id) => {
+    mainApi
+      .deletePreset(id)
+      .then((data) => {
+        setPresets(presets.filter((preset) => preset._id !== data._id));
+      })
+      .catch((err) => console.log(err));
   };
 
   const resetAlarm = () => {
@@ -220,8 +269,13 @@ const Main = ({ socket, presets }) => {
           emergencyStatus={emergencyStatus}
           sensorStatus={sensorStatus}
           setIsPresetPopupOpened={setIsPresetPopupOpened}
+          timerInputs={timerInputs}
         />
-        <PresetList presets={presets} />
+        <PresetList
+          presets={presets}
+          onPresetSelect={onPresetSelect}
+          onDeletePreset={onDeletePreset}
+        />
         <Controls
           emergencyStatus={emergencyStatus}
           sensorStatus={sensorStatus}
@@ -234,6 +288,9 @@ const Main = ({ socket, presets }) => {
       <PresetPopup
         isPresetPopupOpened={isPresetPopupOpened}
         setIsPresetPopupOpened={setIsPresetPopupOpened}
+        onPresetPopupSubmit={onPresetPopupSubmit}
+        setPresets={setPresets}
+        presets={presets}
       />
     </main>
   );

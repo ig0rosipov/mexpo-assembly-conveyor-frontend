@@ -5,11 +5,14 @@ class MainApi {
     this._baseUrl = config.mainApi;
   }
 
-  _handleResponse(result) {
-    if (!result.ok) {
-      return Promise.reject(`Ошибка ${result.status}`);
-    }
-    return result.json();
+  _handleResponse(res) {
+    return res.json().then((json) => {
+      if (!res.ok) {
+        throw json;
+      } else {
+        return json;
+      }
+    });
   }
 
   getAllPresets() {
@@ -22,15 +25,15 @@ class MainApi {
       headers: {
         "Content-Type": "application/json",
       },
-      body: {
+      body: JSON.stringify({
         name,
         runTime,
         stopTime,
-      },
-    });
+      }),
+    }).then(this._handleResponse);
   }
 
-  deletePreset({ presetId }) {
+  deletePreset(presetId) {
     return fetch(this._baseUrl + "/presets/" + presetId, {
       method: "DELETE",
     }).then(this._handleResponse);

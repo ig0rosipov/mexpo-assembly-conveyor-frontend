@@ -28,7 +28,11 @@
 .button_disabled {
   border-width: 2px;
   border-style: solid;
-  background: none;
+  background: none !important;
   opacity: 0.2;
   cursor: inherit;
+}
+
+.hidden {
+  display: none;
 }
