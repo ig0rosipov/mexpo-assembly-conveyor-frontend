@@ -30,21 +30,23 @@ const Timer = ({
     starting: "Запуск",
     emergency: "Нажата аварийная кнопка",
     sensor: "Сработал аварийный датчик",
-    manual: "Включён ручной режим"
+    manual: "Включён ручной режим",
   };
 
   const displayMessage = () => {
-    if(emergencyStatus) {
-      return phaseRU.emergency
+    if (emergencyStatus) {
+      return phaseRU.emergency;
     }
-    if(sensorStatus) {
+    if (sensorStatus) {
       return phaseRU.sensor;
     }
-    if(manualStatus) {
+    if (manualStatus) {
+      console.log("phase", phase);
       return phaseRU.manual;
     }
+    console.log("phase", phase);
     return phaseRU[phase];
-  }
+  };
 
   return (
     <section className="timer">

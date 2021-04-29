@@ -79,7 +79,7 @@ const Main = ({ socket, presets, setPresets }) => {
         console.log(err);
       })
       .finally(() => {
-        socket.emit("timerState", true);
+        socket.emit("pauseState", true);
       });
   };
 
