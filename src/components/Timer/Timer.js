@@ -41,10 +41,8 @@ const Timer = ({
       return phaseRU.sensor;
     }
     if (manualStatus) {
-      console.log("phase", phase);
       return phaseRU.manual;
     }
-    console.log("phase", phase);
     return phaseRU[phase];
   };
 
