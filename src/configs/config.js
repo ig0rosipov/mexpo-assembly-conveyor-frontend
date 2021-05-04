@@ -1,4 +1,4 @@
-const currentIp = "192.168.64.3";
+const currentIp = "localhost:7000";
 
 export const config = {
   mainApi: `http://${currentIp}/api`,

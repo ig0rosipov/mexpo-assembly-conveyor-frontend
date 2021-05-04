@@ -37,11 +37,11 @@ const Preset = ({ preset, onPresetSelect, onDeletePreset }) => {
       </form> */}
       <div className="preset__time-info">
         <div className="preset__time">
-          <p className="preset__time-description">Время паузы</p>
+          <p className="preset__time-description">Пауза</p>
           <p className="preset__time-value">{stopTime}</p>
         </div>
         <div className="preset__time">
-          <p className="preset__time-description">Время движения</p>
+          <p className="preset__time-description">Движение</p>
           <p className="preset__time-value">{runTime}</p>
         </div>
       </div>
