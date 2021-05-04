@@ -1,4 +1,6 @@
-const currentIp = "localhost:7000";
+import { build } from "../../BUILD_CONFIG";
+
+const currentIp = build === "develop" ? "localhost:7000" : "192.168.64.3";
 
 export const config = {
   mainApi: `http://${currentIp}/api`,
