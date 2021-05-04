@@ -1,4 +1,4 @@
-import { build } from "../../BUILD_CONFIG";
+import { build } from "../BUILD_CONFIG";
 
 const currentIp = build === "develop" ? "localhost:7000" : "192.168.64.3";
 
