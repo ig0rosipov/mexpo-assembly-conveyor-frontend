@@ -175,9 +175,11 @@ const Main = ({ socket, presets, setPresets }) => {
       arduinoApi
         .runConveyor()
         .then((res) => {
+          socket.emit('changePhase', true);
           console.log(res);
         })
         .catch((err) => {
+          socket.emit('changePhase', false);
           console.log(err);
         });
     }
@@ -186,9 +188,11 @@ const Main = ({ socket, presets, setPresets }) => {
       arduinoApi
         .stopConveyor()
         .then((res) => {
+          socket.emit('changePhase', true);
           console.log(res);
         })
         .catch((err) => {
+          socket.emit('changePhase', false);
           console.log(err);
         });
     }
