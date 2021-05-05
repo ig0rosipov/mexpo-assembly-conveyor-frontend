@@ -198,6 +198,14 @@ const Main = ({ socket, presets, setPresets }) => {
     }
   }, [timer.phase]);
 
+  const onTrue = () => {
+    socket.emit('changePhase', true);
+  }
+
+  const onFalse = () => {
+    socket.emit('changePhase', false);
+  }
+
   const colors = {
     green: {
       color: "#07de76",
@@ -254,6 +262,8 @@ const Main = ({ socket, presets, setPresets }) => {
 
   return (
     <main className="main">
+      <button onClick={onTrue}>true</button>
+      <button onClick={onFalse}>false</button>
       <Timer
         emergencyStatus={emergencyStatus}
         sensorStatus={sensorStatus}
