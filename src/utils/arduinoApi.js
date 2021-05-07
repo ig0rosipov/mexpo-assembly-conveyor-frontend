@@ -33,6 +33,17 @@ class ArduinoApi {
       .then(this._handleOriginalResponse)
       .then((data) => data.json());
   }
+
+  pause() {
+    return fetch(this._arduinoUrl + "/pause", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(this._handleOriginalResponse)
+      .then((data) => data.json());
+  }
 }
 
 const arduinoApi = new ArduinoApi();

@@ -31,6 +31,7 @@ const Timer = ({
     emergency: "Нажата аварийная кнопка",
     sensor: "Сработал аварийный датчик",
     manual: "Включён ручной режим",
+    firstLoad: "Запустите таймер"
   };
 
   const displayMessage = () => {

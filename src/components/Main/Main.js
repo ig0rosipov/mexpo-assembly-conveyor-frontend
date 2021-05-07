@@ -18,7 +18,7 @@ const Main = ({ socket, presets, setPresets }) => {
   });
   const [timer, setTimer] = useState({
     currentTime: [0, 0, 0],
-    phase: "starting",
+    phase: "firstLoad",
   });
   const [emergencyStatus, setEmergencyStatus] = useState(false);
   const [sensorStatus, setSensorStatus] = useState(false);
@@ -71,7 +71,7 @@ const Main = ({ socket, presets, setPresets }) => {
   const handlePause = () => {
     setIsPausePressed(true);
     arduinoApi
-      .stopConveyor()
+      .pause()
       .then((data) => {
         console.log(data);
       })
@@ -85,16 +85,6 @@ const Main = ({ socket, presets, setPresets }) => {
 
   const setTimeSubmit = (e) => {
     e.preventDefault();
-    arduinoApi
-      .stopConveyor()
-      .then((data) => {
-        console.log(data);
-        setIsPausePressed(false);
-        setManualStatus(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
     socket.emit("changeTimer", {
       ...timerSettings,
       currentTime: [0, 0, 4],
@@ -171,40 +161,49 @@ const Main = ({ socket, presets, setPresets }) => {
   };
 
   useEffect(() => {
-    if (timer.phase === "running") {
-      arduinoApi
-        .runConveyor()
-        .then((res) => {
-          socket.emit('changePhase', true);
-          console.log(res);
-        })
-        .catch((err) => {
-          socket.emit('changePhase', false);
-          console.log(err);
-        });
+    if (timer.currentTime.every((value) => value === 0)) {
+      if (timer.phase === "running") {
+        arduinoApi
+          .stopConveyor()
+          .then((res) => {
+            socket.emit("changePhase", true);
+            console.log(res);
+          })
+          .catch((err) => {
+            socket.emit("changePhase", false);
+            console.log(err);
+          });
+      }
+
+      if (timer.phase === "production") {
+        arduinoApi
+          .runConveyor()
+          .then((res) => {
+            socket.emit("changePhase", true);
+            console.log(res);
+          })
+          .catch((err) => {
+            socket.emit("changePhase", false);
+            console.log(err);
+          });
+      }
+
+      if (timer.phase === "starting") {
+        arduinoApi
+          .stopConveyor()
+          .then((data) => {
+            console.log(data);
+            setIsPausePressed(false);
+            setManualStatus(false);
+            socket.emit("changePhase", true);
+          })
+          .catch((err) => {
+            console.log(err);
+            socket.emit("changePhase", false);
+          });
+      }
     }
-
-    if (timer.phase === "production") {
-      arduinoApi
-        .stopConveyor()
-        .then((res) => {
-          socket.emit('changePhase', true);
-          console.log(res);
-        })
-        .catch((err) => {
-          socket.emit('changePhase', false);
-          console.log(err);
-        });
-    }
-  }, [timer.phase]);
-
-  const onTrue = () => {
-    socket.emit('changePhase', true);
-  }
-
-  const onFalse = () => {
-    socket.emit('changePhase', false);
-  }
+  }, [timer.currentTime]);
 
   const colors = {
     green: {
@@ -262,8 +261,6 @@ const Main = ({ socket, presets, setPresets }) => {
 
   return (
     <main className="main">
-      <button onClick={onTrue}>true</button>
-      <button onClick={onFalse}>false</button>
       <Timer
         emergencyStatus={emergencyStatus}
         sensorStatus={sensorStatus}
