@@ -1,9 +1,10 @@
 import Preset from "../Preset/Preset";
 import "./PresetList.css";
 
-const PresetList = ({ presets, onPresetSelect, onDeletePreset }) => {
+const PresetList = ({ presets, onPresetSelect, onDeletePreset, closeAllPopups }) => {
   return (
     <div className="preset-list">
+      <button onClick={closeAllPopups} className="preset-list__close-button close-button"></button>
       <div className="preset-list__wrapper">
         <ul className="preset-list__presets">
           {presets.map((preset) => {
@@ -13,6 +14,7 @@ const PresetList = ({ presets, onPresetSelect, onDeletePreset }) => {
                   preset={preset}
                   onPresetSelect={onPresetSelect}
                   onDeletePreset={onDeletePreset}
+                  closeAllPopups={closeAllPopups}
                 />
               </li>
             );

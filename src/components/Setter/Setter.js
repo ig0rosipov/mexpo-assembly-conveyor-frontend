@@ -4,12 +4,12 @@ const Setter = ({
   handleTimeInput,
   emergencyStatus,
   sensorStatus,
-  setIsPresetPopupOpened,
+  setIsCreatePresetPopupOpened,
   timerInputs,
 }) => {
   const onSaveButton = (e) => {
     e.preventDefault();
-    setIsPresetPopupOpened(true);
+    setIsCreatePresetPopupOpened(true);
   };
 
   return (

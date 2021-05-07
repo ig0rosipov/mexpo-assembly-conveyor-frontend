@@ -5,7 +5,7 @@
   box-sizing: border-box;
   padding: 20px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: opacity 0.2s;
   width: 100%;
   font-size: 22px;
   border-width: 2px;
@@ -35,6 +35,46 @@
 
 .hidden {
   display: none;
+}
+
+.popup {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.6);
+  visibility: visible;
+  transition:  0.2s;
+}
+
+.popup_hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.close-button {
+  background: url(../images/close-button.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: none;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: -35px;
+  right: -35px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  z-index: 999;
+}
+
+.close-button:hover {
+  opacity: 0.6;
 }
 
 @media (max-width: 1367px) {

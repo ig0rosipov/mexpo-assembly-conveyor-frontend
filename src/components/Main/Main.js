@@ -4,8 +4,8 @@ import arduinoApi from "../../utils/arduinoApi";
 import Timer from "../Timer/Timer";
 import Setter from "../Setter/Setter";
 import Controls from "../Controls/Controls";
-import PresetList from "../PresetList/PresetList";
-import PresetPopup from "../PresetPopup/PresetPopup";
+import PresetListPopup from "../PresetListPopup/PresetListPopup";
+import CreatePresetPopup from "../CreatePresetPopup/CreatePresetPopup";
 import mainApi from "../../utils/mainApi";
 const Main = ({ socket, presets, setPresets }) => {
   const [timerInputs, setTimerInputs] = useState({
@@ -24,8 +24,10 @@ const Main = ({ socket, presets, setPresets }) => {
   const [sensorStatus, setSensorStatus] = useState(false);
   const [manualStatus, setManualStatus] = useState(false);
   const [isPausePressed, setIsPausePressed] = useState(false);
-  const [isPresetPopupOpened, setIsPresetPopupOpened] = useState(false);
-
+  const [isCreatePresetPopupOpened, setIsCreatePresetPopupOpened] = useState(
+    false
+  );
+  const [isPresetsPopupOpened, setIsPresetsPopupOpened] = useState(false);
   const handleServerData = (data) => {
     const { currentTime, phase, emergency, sensor, manual } = data;
     setTimer({
@@ -160,6 +162,16 @@ const Main = ({ socket, presets, setPresets }) => {
     socket.emit("resetAlarm", "test");
   };
 
+  const closeAllPopups = () => {
+    console.log("Qwer");
+    setIsPresetsPopupOpened(false);
+    setIsCreatePresetPopupOpened(false);
+  };
+
+  const openPresetsPopup = () => {
+    setIsPresetsPopupOpened(true);
+  };
+
   useEffect(() => {
     if (timer.currentTime.every((value) => value === 0)) {
       if (timer.phase === "running") {
@@ -279,14 +291,12 @@ const Main = ({ socket, presets, setPresets }) => {
           handleTimeInput={handleTimeInput}
           emergencyStatus={emergencyStatus}
           sensorStatus={sensorStatus}
-          setIsPresetPopupOpened={setIsPresetPopupOpened}
+          setIsCreatePresetPopupOpened={setIsCreatePresetPopupOpened}
           timerInputs={timerInputs}
         />
-        <PresetList
-          presets={presets}
-          onPresetSelect={onPresetSelect}
-          onDeletePreset={onDeletePreset}
-        />
+        <button onClick={openPresetsPopup} className="main__preset-button button">
+          Выбрать шаблон
+        </button>
         <Controls
           emergencyStatus={emergencyStatus}
           sensorStatus={sensorStatus}
@@ -296,12 +306,20 @@ const Main = ({ socket, presets, setPresets }) => {
           resetAlarm={resetAlarm}
         />
       </div>
-      <PresetPopup
-        isPresetPopupOpened={isPresetPopupOpened}
-        setIsPresetPopupOpened={setIsPresetPopupOpened}
+      <CreatePresetPopup
+        isCreatePresetPopupOpened={isCreatePresetPopupOpened}
+        closeAllPopups={closeAllPopups}
         onPresetPopupSubmit={onPresetPopupSubmit}
         setPresets={setPresets}
         presets={presets}
+      />
+      <PresetListPopup
+        isPresetsPopupOpened={isPresetsPopupOpened}
+        closeAllPopups={closeAllPopups}
+        presets={presets}
+        onPresetSelect={onPresetSelect}
+        onDeletePreset={onDeletePreset}
+        setIsPresetsPopupOpened={setIsPresetsPopupOpened}
       />
     </main>
   );
