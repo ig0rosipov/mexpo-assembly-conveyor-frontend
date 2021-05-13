@@ -44,8 +44,7 @@ const Main = ({ socket, presets, setPresets }) => {
     if (timer.phase === "running") {
       arduinoApi
         .runConveyor()
-        .then((data) => {
-          console.log(data);
+        .then(() => {
           setButtonText("Продолжить");
           setIsPausePressed(false);
           setManualStatus(false);
@@ -57,8 +56,7 @@ const Main = ({ socket, presets, setPresets }) => {
     } else {
       arduinoApi
         .stopConveyor()
-        .then((data) => {
-          console.log(data);
+        .then(() => {
           setButtonText("Продолжить");
           setIsPausePressed(false);
           setManualStatus(false);
@@ -74,9 +72,7 @@ const Main = ({ socket, presets, setPresets }) => {
     setIsPausePressed(true);
     arduinoApi
       .pause()
-      .then((data) => {
-        console.log(data);
-      })
+      .then(() => {})
       .catch((err) => {
         console.log(err);
       })
@@ -120,7 +116,6 @@ const Main = ({ socket, presets, setPresets }) => {
   };
 
   const handleTimeInput = (e) => {
-    console.log(e.target.value);
     const name = e.target.name;
     const val = parseTime(e.target.value);
     changeTimeValues(name, val, e.target.value);
@@ -142,7 +137,6 @@ const Main = ({ socket, presets, setPresets }) => {
 
   const onPresetPopupSubmit = (name) => {
     const { runTime, stopTime } = timerInputs;
-    console.log(name, runTime, stopTime);
     return mainApi.addPreset({ name, runTime, stopTime });
   };
 
@@ -163,7 +157,6 @@ const Main = ({ socket, presets, setPresets }) => {
   };
 
   const closeAllPopups = () => {
-    console.log("Qwer");
     setIsPresetsPopupOpened(false);
     setIsCreatePresetPopupOpened(false);
   };
@@ -177,9 +170,8 @@ const Main = ({ socket, presets, setPresets }) => {
       if (timer.phase === "running") {
         arduinoApi
           .stopConveyor()
-          .then((res) => {
+          .then(() => {
             socket.emit("changePhase", true);
-            console.log(res);
           })
           .catch((err) => {
             socket.emit("changePhase", false);
@@ -190,9 +182,8 @@ const Main = ({ socket, presets, setPresets }) => {
       if (timer.phase === "production") {
         arduinoApi
           .runConveyor()
-          .then((res) => {
+          .then(() => {
             socket.emit("changePhase", true);
-            console.log(res);
           })
           .catch((err) => {
             socket.emit("changePhase", false);
@@ -203,8 +194,7 @@ const Main = ({ socket, presets, setPresets }) => {
       if (timer.phase === "starting") {
         arduinoApi
           .stopConveyor()
-          .then((data) => {
-            console.log(data);
+          .then(() => {
             setIsPausePressed(false);
             setManualStatus(false);
             socket.emit("changePhase", true);
