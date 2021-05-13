@@ -217,6 +217,12 @@ const Main = ({ socket, presets, setPresets }) => {
     }
   }, [timer.currentTime]);
 
+  useEffect(() => {
+    if (manualStatus) {
+      handlePause();
+    }
+  }, [manualStatus]);
+
   const colors = {
     green: {
       color: "#07de76",
@@ -230,15 +236,12 @@ const Main = ({ socket, presets, setPresets }) => {
     red: {
       color: "#DF324D",
     },
-    flame: {
-      color: "#DF4E22",
-    },
     transparentWhite: {
       color: "rgba(255, 255, 255, .6)",
     },
   };
 
-  const colorizeTimer = (minutes, seconds) => {
+  const colorizeTimer = () => {
     if (isPausePressed) {
       return colors.yellow;
     }
@@ -251,7 +254,7 @@ const Main = ({ socket, presets, setPresets }) => {
     return colors.blue;
   };
 
-  const colorizeMessage = (phase) => {
+  const colorizeMessage = () => {
     if (!emergencyStatus && !sensorStatus) {
       return colors.transparentWhite;
     }
@@ -264,12 +267,6 @@ const Main = ({ socket, presets, setPresets }) => {
     while (number.length < size) number = "0" + number;
     return number;
   };
-
-  useEffect(() => {
-    if (manualStatus) {
-      handlePause();
-    }
-  }, [manualStatus]);
 
   return (
     <main className="main">
@@ -294,7 +291,10 @@ const Main = ({ socket, presets, setPresets }) => {
           setIsCreatePresetPopupOpened={setIsCreatePresetPopupOpened}
           timerInputs={timerInputs}
         />
-        <button onClick={openPresetsPopup} className="main__preset-button button">
+        <button
+          onClick={openPresetsPopup}
+          className="main__preset-button button"
+        >
           Выбрать шаблон
         </button>
         <Controls

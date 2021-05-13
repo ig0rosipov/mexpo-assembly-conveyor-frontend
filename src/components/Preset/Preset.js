@@ -29,14 +29,12 @@ const Preset = ({ preset, onPresetSelect, onDeletePreset, closeAllPopups }) => {
         </div>
       </div>
       <div className="preset__buttons">
-        <button
-          className="preset__button button"
-          onClick={onSelectButton}
-        >Выбрать</button>
-        <button
-          className="preset__button button"
-          onClick={onDelete}
-        >Удалить</button>
+        <button className="preset__button button" onClick={onSelectButton}>
+          Выбрать
+        </button>
+        <button className="preset__button button" onClick={onDelete}>
+          Удалить
+        </button>
       </div>
     </div>
   );

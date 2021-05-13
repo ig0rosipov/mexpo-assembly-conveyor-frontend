@@ -1,11 +1,23 @@
 import Preset from "../Preset/Preset";
 import "./PresetList.css";
 
-const PresetList = ({ presets, onPresetSelect, onDeletePreset, closeAllPopups }) => {
+const PresetList = ({
+  presets,
+  onPresetSelect,
+  onDeletePreset,
+  closeAllPopups,
+}) => {
   return (
     <div className="preset-list">
-      <button onClick={closeAllPopups} className="preset-list__close-button close-button"></button>
-      <div className={`preset-list__wrapper ${presets.length > 9 && "preset-list__wrapper_type_scroll"}`}>
+      <button
+        onClick={closeAllPopups}
+        className="preset-list__close-button close-button"
+      ></button>
+      <div
+        className={`preset-list__wrapper ${
+          presets.length > 9 && "preset-list__wrapper_type_scroll"
+        }`}
+      >
         <ul className="preset-list__presets">
           {presets.map((preset) => {
             return (

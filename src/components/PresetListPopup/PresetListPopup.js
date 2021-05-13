@@ -9,15 +9,19 @@ const PresetListPopup = ({
   onDeletePreset,
 }) => {
   const onOverlayClick = (e) => {
-    if(e.target !== e.currentTarget) {
+    if (e.target !== e.currentTarget) {
       return;
     }
     closeAllPopups();
-  }
+  };
 
   return (
-    <section className={`presets-popup popup ${!isPresetsPopupOpened && "popup_hidden"}`}
-    onClick={onOverlayClick}>
+    <section
+      className={`presets-popup popup ${
+        !isPresetsPopupOpened && "popup_hidden"
+      }`}
+      onClick={onOverlayClick}
+    >
       <PresetList
         presets={presets}
         onPresetSelect={onPresetSelect}
